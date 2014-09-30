@@ -1,0 +1,16 @@
+Create new Suitor
+<%= form_for @suitor do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.label :age %>
+<%= f.text_field :age %>
+<%= f.label :image_url %>
+<%= f.text_field :image_url %>
+<% if params[:bachelorette_id] %>
+<%= f.hidden_field :bachelorette_id, :value => params[:bachelorette_id]%>
+<% else %>
+<%= f.label :bachelorette_id %>
+<%= f.text_field :bachelorette_id %>
+<% end %>
+<%= f.submit %>
+<% end %>

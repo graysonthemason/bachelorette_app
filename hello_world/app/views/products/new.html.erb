@@ -1,0 +1,19 @@
+New Product!
+
+<form method="POST" action="/products">
+  <label for="name">Enter Product name</label>
+  <input type="text" name="name" /><br/>
+  <label for="description">Enter Product description</label>
+  <input type="text" name="description" /><br/>
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>"/>
+  <input type="submit" value="Create" /><br/>
+</form>
+
+<%= form_for @product do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.label :description %>
+<%= f.text_field :description %>
+<%= f.submit %>
+<% end %>
+

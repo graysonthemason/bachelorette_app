@@ -1,0 +1,7 @@
+<%= link_to("Home", root_path) %>
+products index
+<ul>
+<% @products.each do |product| %>
+<li><%= link_to(product.name, product) %></li>
+<% end %>
+</ul>

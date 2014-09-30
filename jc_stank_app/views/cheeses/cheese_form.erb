@@ -1,0 +1,42 @@
+<section id="cheese_form">
+  <h2>Add New Cheese</h2>
+
+  <form method="POST" action="/cheese">
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" />
+    <br/><br/>
+    <label for="country">Country: </label>
+    <input type="text" name="country" id="country" />
+    <br/><br/>
+    <label for="milk_type">Milk Type: </label>
+    <input type="text" name="milk_type" id="milk_type" />
+    <br/><br/>
+    <label for="stank_level">Stank Level(1-5): </label>
+    <input type="text" name="stank_level" id="stank_level" />
+    <br/><br/>
+    <label for="desc">Description: </label>
+    <input type="text" name="desc" id="desc" />
+    <br/><br/>
+    <label for="image_url">Image URL: </label>
+    <input type="text" name="image_url" id="image_url" />
+    <br/><br/>
+    <input type="submit" value="Submit" />
+  </form>
+
+  <% if @show_contact_success_message %>
+    <p class="message">Your new cheese has been added!</p>
+  <% end %>
+
+</section>
+
+
+<!-- "name" = string
+"country" = string
+"stank_level" = 1-5 i
+"milk_type" = >string
+"image_url" => string
+"desc" => string
+"id" => "cheeses:1" -->
+
+
+

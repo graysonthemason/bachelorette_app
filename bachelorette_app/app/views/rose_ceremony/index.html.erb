@@ -1,0 +1,9 @@
+Rose Ceremony!
+<%= form_tag("/bachelorettes/#{@b.id}/rose_ceremony", method: "post") do %>
+<% @suitors.each do |suitor| %>
+<li> <%= suitor.name unless suitor.eliminated?%>
+	<%= check_box(:eliminated, suitor.id, {}, false, true) unless suitor.eliminated?%>
+</li>
+<% end %>
+<%= submit_tag("Submit") %>
+<% end %>

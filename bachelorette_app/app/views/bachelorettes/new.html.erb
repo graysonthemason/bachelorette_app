@@ -1,0 +1,12 @@
+Create new Bachelorette
+<%= form_for @bachelorette do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.label :age %>
+<%= f.text_field :age %>
+<%= f.label :image_url %>
+<%= f.text_field :image_url %>
+<%= f.label :season_id %>
+<%= f.text_field :season_id %>
+<%= f.submit %>
+<% end %>

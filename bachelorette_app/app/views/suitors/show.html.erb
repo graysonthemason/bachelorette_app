@@ -1,0 +1,12 @@
+<%= link_to("Home", root_path) %>
+Suitor Show Page!
+<ul>
+<li><%= @suitor.name%></li>
+<li><%= @suitor.age%></li>
+<li><%= @suitor.bachelorette_id%></li>
+<li><%= @suitor.image_url%></li>
+</ul>
+<%= link_to("Edit", edit_suitor_path(id: @suitor.id)) %>
+<%= form_for(@suitor, { :method => :delete }) do |f| %>
+<%= f.submit "Delete Suitor"%>
+<% end %>

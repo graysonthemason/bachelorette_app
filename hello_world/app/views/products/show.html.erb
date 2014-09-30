@@ -1,0 +1,11 @@
+<%= link_to("Home", root_path) %>
+Product Glamour Page
+<ul>
+<li><%= @product.name%></li>
+<li><%= @product.description%></li>
+</ul>
+<%= link_to("Edit", edit_product_path(id: @product.id)) %>
+
+<%= form_for(@product, { :method => :delete }) do |f| %>
+<%= f.submit "Delete product"%>
+<% end %>

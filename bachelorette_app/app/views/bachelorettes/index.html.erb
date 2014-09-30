@@ -1,0 +1,7 @@
+Bachelorettes Index!
+<%= link_to("New Bachelorette", new_bachelorette_path) %>
+<ul>
+	<% @bachelorettes.each do |bachelorette| %>
+		<li> <%= link_to(bachelorette.name, bachelorette) %> </li>
+	<% end %>
+</ul>

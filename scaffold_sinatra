@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+
+mkdir "${1}"
+cd "${1}"
+# git init # TODO add a command line flag to include git init
+
+
+# setup rspec for TDD
+rspec --init
+
+echo -e "--color\n--format documentation\n--require spec_helper\n" > .rspec
+
+#create a readme
+echo "# ${1}" > readme.md
+
+# build assets template
+mkdir public
+mkdir public/images
+mkdir public/stylesheets
+touch public/stylesheets/normalize.css
+curl -o public/stylesheets/normalize.css http://necolas.github.io/normalize.css/3.0.1/normalize.css
+touch public/stylesheets/style.css
+
+# build views template
+mkdir views
+# touch views/index.erb
+echo "<h1>Hello World</h1>" > views/index.erb
+
+cat << EOF > views/layout.erb
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>$1</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+EOF
+
+# Create a Gemfile
+# FIXME ensure that ruby version is taken from env vars
+cat << EOF > Gemfile
+#A sample Gemfile
+source "https://rubygems.org"
+
+ruby "2.1.2"
+
+gem 'sinatra', '1.4.5'
+gem 'redis',  '3.1.0'
+
+# only used in development locally
+group :development do
+  gem 'pry'
+  gem 'shotgun'
+end
+
+group :production do
+  # gems specific just in the production environment
+end
+
+group :test do
+  gem 'rspec'
+end
+EOF
+
+#bundle install
+bundle install
+# set Rack configuration
+cat << EOF > config.ru
+require './app'
+
+run App
+EOF
+
+# app.rb
+cat << EOF > app.rb
+require 'sinatra/base'
+
+class App < Sinatra::Base
+
+  ########################
+  # Configuration
+  ########################
+
+  configure do
+    enable :logging
+    enable :method_override
+    enable :sessions
+  end
+
+  before do
+    logger.info "Request Headers: #{headers}"
+    logger.warn "Params: #{params}"
+  end
+
+  after do
+    logger.info "Response Headers: #{response.headers}"
+  end
+
+  ########################
+  # Routes
+  ########################
+
+  get('/') do
+    render(:erb, :index, :layout => :layout)
+  end
+end
+
+EOF
+
+#start 'em up!'
+
+bundle exec shotgun
+
+
+
+

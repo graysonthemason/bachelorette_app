@@ -1,0 +1,62 @@
+## ABC's The Bachelorette
+
+In ABC's hit series, The Bachelorette, an attractive, uncontroversial woman is wooed by a pack of (mostly) strange men in their 20s and 30s, all of whom are forced to cohabitate in a mansion kept under artful surveillance. ABC execs have tasked you with building a web application for tracking information about the upcoming season of The Bachelorette, and naturally, you have accepted.
+
+#### Models
+
+- a __Bachelorette__ has many __Suitors__, as well as the following attributes:
+  - `name`
+  - `age`
+  - `season_id` (an integer)
+  - `image_url`
+
+- a __Suitor__ has a single __Bachelorette__, as well as the following attributes:
+  - `name`
+  - `age`
+  - `image_url`
+  - `eliminated` (a boolean that's set to false on creation)
+  - `winner` (a boolean that's set to false by on creation)
+  - `bachelorette_id` (a mandatory integer value)
+
+#### Behavioral Specs
+
+__Part 1: The Bachelorette Resource__
+- making a GET request to `/bachelorettes` displays a list of all the bachelorettes (each list item should link to the appropriate bachelorette show page)
+- making a GET request to `/bachelorettes/6` displays the information for the bachelorette with id 6
+- making a GET request to `/bachelorettes/new` provides a form for creating a new bachelorette
+- making a GET request to `/bachelorettes/13/edit` displays a pre-populated form for editing the information of the bachelorette with id of 13
+- making a POST request to `/bachelorettes` persists a new bachelorette to the db
+- making a PUT request to `/bachelorettes/23` updates the information for the bachelorette with id of 23
+- making a DELETE request to `/bachelorettes/19` deletes the database entry for the bachelorette with id of 19
+  - __BONUS__: When a bachelorette is destroyed, destroy all associated suitors
+
+__Part 2: The Suitor Resource__
+
+- making a GET request to `/suitors` displays a list of all the suitors ever (each list item should link to the appropriate suitor's show page)
+- making a GET request to `/suitors/new` takes the user to a form for creating a new suitor
+  - __NOTE:__ this form should provide a select box for linking the suitor to a particular `Bachelorette`
+- making a GET request to `/suitors/8` takes the user to the profile page for the suitor with id of 8
+
+__Part 3: A Bachelorette and Her Suitors__
+
+- making a GET request to `/bachelorettes/7/suitors` displays a list of only the suitors who are pursuing the bachelorette with id of 7
+- making a GET request to `/bachelorettes/13/suitors/new` displays a form for creating a new suitor, but contains a hidden input for `bachelorette_id` that is set to the id of the bachelorette in question (ie 13)
+- making a POST request to `/bachelorettes/2/suitors` persists a new suitor to the db __if and only if the Bachelorette with id of 2 has less than 24 Suitors__
+
+__BONUS: The Rose Ceremony__
+
+- making a GET request to `/bachelorettes/3/rose_ceremony` displays a form with a list of checkboxes for the __non-eliminated suitors__ of bachelorette with id of 3. Beside each checkbox should be a label that says, "NAME, will you accept this rose?"
+  - format this form so that it fires off a PUT request to `/bachelorettes/3/rose_ceremony`
+- making a PUT request to `/bachelorettes/3/rose_ceremony` sets `eliminated` to `true` for all of bachelorette 3's suitors who weren't given a rose. The application should then render a `tearful_goodbye` ERB template with pictures of the eliminated Suitors, as well as a link back to `/bachelorettes/3/rose_ceremony`
+- if a GET request is made to `/bachelorettes/3/rose_ceremony` and the bachelorette with id of 3 has only one suitor who isn't `eliminated`, that suitor's `winner` value should be updated to true, and the user should be redirected to a `/bachelorette/3/wedding` page that displays side-by-side photos of the bachelorette and her winning suitor.
+
+
+#### Useful Command-Line Commands
+
+- `rails new APP_NAME -d DATABASE_MANAGEMENT_SYSTEM`
+- `rake db:create`
+- `rake db:migrate`
+- `rake db:seed`
+- `rails server`
+- `rails console`
+- `rails db`

@@ -1,0 +1,7 @@
+Suitors Index!
+<%= link_to("New Suitor", new_suitor_path) %>
+<ul>
+	<% @suitors.each do |suitor| %>
+		<li> <%= link_to(suitor.name, suitor) %> </li>
+	<% end %>
+</ul>
